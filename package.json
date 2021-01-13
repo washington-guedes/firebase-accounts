@@ -1,7 +1,7 @@
 {
   "name": "firebase-accounts",
   "scripts": {
-    "serve": "npx env-cmd -f .env && npx vue serve ./src/main.js -o"
+    "serve": "npx env-cmd -f .env && npx vue serve ./src/index.js -o"
   },
   "devDependencies": {
     "@vue/cli": "^4.5.10",
