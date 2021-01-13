@@ -51,8 +51,8 @@ export class AuthService {
     return !this.isAuthenticated();
   }
 
-  logout() {
-    this.auth.signOut();
+  async logout() {
+    await this.auth.signOut();
   }
 }
 

@@ -2,7 +2,7 @@
   <div>
     <p>You are logged in, in a private route.</p>
 
-    <p>¿ iframe page to be loaded ?</p>
+    <p>¿ can this be the page to be loaded in the iframe via the client.js ?</p>
 
     <p>¿ can pub-sub methods be defined in this component ?</p>
 
@@ -15,7 +15,8 @@
 <script>
 export default {
   methods: {
-    logout() {
+    async logout() {
+      await this.$auth.logout();
       this.$router.push('/login');
     },
   },
