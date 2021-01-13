@@ -1,25 +1,18 @@
 {
   "name": "firebase-accounts",
   "scripts": {
-    "serve": "npx env-cmd -f .env && npx vue serve ./src/index.js -o"
-  },
-  "devDependencies": {
-    "@vue/cli": "^4.5.10",
-    "@vue/cli-service-global": "^4.5.10",
-    "env-cmd": "^10.1.0",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.0.0",
-    "eslint-plugin-vue": "^7.4.1",
-    "node-sass": "^5.0.0",
-    "sass-loader": "^10.1.1"
+    "serve": "npx env-cmd npx vue serve ./src/index.js -o"
   },
   "dependencies": {
     "firebase": "^8.2.2",
     "vue": "^2.6.12",
     "vue-router": "^3.4.9"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.5.10",
+    "@vue/cli-service-global": "^4.5.10",
+    "env-cmd": "^10.1.0",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.1"
   }
 }

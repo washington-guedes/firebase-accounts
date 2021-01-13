@@ -10,7 +10,7 @@ export const router = new VueRouter({
       path: '/',
       component: () => import('./home/index.vue'),
       beforeEnter: (to, from, next) => {
-        console.log('beforeEnter /home');
+        console.log('beforeEnter /home', this.$auth);
         next();
       },
     },
