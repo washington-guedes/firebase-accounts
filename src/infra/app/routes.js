@@ -8,7 +8,7 @@ export const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: () => import('./home/index.vue'),
+      component: () => import('../../components/home/index.vue'),
       beforeEnter: (to, from, next) => {
         console.log('beforeEnter /home, isAuthenticated', Vue.prototype.$auth.isAuthenticated());
 
@@ -17,7 +17,7 @@ export const router = new VueRouter({
     },
     {
       path: '/login',
-      component: () => import('./login/index.vue'),
+      component: () => import('../../components/login/index.vue'),
       beforeEnter: (to, from, next) => {
         console.log('beforeEnter /login');
         next();
@@ -25,7 +25,7 @@ export const router = new VueRouter({
     },
     {
       path: '/signup',
-      component: () => import('./signup/index.vue'),
+      component: () => import('../../components/signup/index.vue'),
       beforeEnter: (to, from, next) => {
         console.log('beforeEnter /signup');
         next();
