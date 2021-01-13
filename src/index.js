@@ -1,12 +1,11 @@
 import Vue from 'vue';
-
-import FirebaseInstance from './firebase';
+import { AuthService } from './services/auth';
 
 import App from './app.vue';
 import './app.scss';
-import { router } from './routing';
+import { router } from './app.routes';
 
-Vue.prototype.$auth = FirebaseInstance.auth();
+Vue.prototype.$auth = new AuthService();
 
 new Vue({
   router,

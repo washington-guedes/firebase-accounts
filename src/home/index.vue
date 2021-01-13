@@ -11,7 +11,7 @@
 export default {
   methods: {
     logout() {
-      console.log('TODO: logout');
+      this.$router.push('/login');
     },
   },
 };
