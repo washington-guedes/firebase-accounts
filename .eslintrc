@@ -3,8 +3,5 @@
     "airbnb",
     "plugin:vue/essential",
     "plugin:vue/recommended"
-  ],
-  "parserOptions": {
-    "parser": "babel-eslint"
-  }
+  ]
 }
