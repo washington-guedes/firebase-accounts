@@ -7,7 +7,7 @@
     >
     <input
       v-model="password"
-      type="text"
+      type="password"
       placeholder="password"
     >
     <button @click="login">
@@ -26,8 +26,9 @@ export default {
     password: '',
   }),
   methods: {
-    login() {
-      console.log('TODO: login');
+    async login() {
+      await this.$auth.login(this.email, this.password);
+      this.$router.push('/');
     },
   },
 };

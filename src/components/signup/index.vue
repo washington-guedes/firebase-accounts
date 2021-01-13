@@ -7,12 +7,12 @@
     >
     <input
       v-model="password"
-      type="text"
+      type="password"
       placeholder="password"
     >
     <input
       v-model="confirm"
-      type="text"
+      type="password"
       placeholder="confirm password"
     >
     <button @click="signup">
@@ -32,11 +32,13 @@ export default {
     confirm: '',
   }),
   methods: {
-    goToLogin() {
+    async signup() {
+      if (this.password !== this.confirm) {
+        alert('Confirm password failed');
+        return;
+      }
+      await this.$auth.signup(this.email, this.password);
       this.$router.push('/login');
-    },
-    signup() {
-      console.log('TODO: signup');
     },
   },
 };
