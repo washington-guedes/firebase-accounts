@@ -23,7 +23,7 @@ export class AuthService {
     try {
       await this.auth.signInWithEmailAndPassword(email, password);
       const token = await this.auth.currentUser.getIdToken();
-      document.cookie = `__Secure_id=${token}; Domain=${process.env.VUE_APP_DOMAIN}; Secure`;
+      document.cookie = `__Secure_id=${token}; Domain=${process.env.VUE_APP_FIREBASE_COOKIES_DOMAIN}; Secure`;
     } catch (error) {
       if (error.code === 'auth/user-not-found') {
         alert('User not found');
