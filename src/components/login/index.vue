@@ -25,10 +25,25 @@ export default {
     email: '',
     password: '',
   }),
+  mounted() {
+    const { target } = this.$router.currentRoute.query;
+    if (target) {
+      localStorage.setItem('target', target);
+    }
+  },
   methods: {
     async login() {
       await this.$auth.login(this.email, this.password);
-      this.$router.push('/');
+      console.log(`logged in at ${new Date().toLocaleString()}`);
+
+      const target = localStorage.getItem('target');
+      if (target) {
+        localStorage.removeItem('target');
+        window.location.href = target;
+      } else {
+        console.log('after login, sending to home');
+        this.$router.push('/');
+      }
     },
   },
 };
