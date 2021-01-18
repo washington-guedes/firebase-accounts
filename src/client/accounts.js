@@ -23,15 +23,15 @@ export async function isAuthenticated() {
   return ans;
 }
 
-export async function hasAccessTo(...args) {
+export async function hasAccessTo(x) {
   await checkDomain;
-  const ans = await askIframe('hasAccessTo', ...args);
+  const ans = await askIframe('hasAccessTo', x);
   return ans;
 }
 
 export async function login() {
   await checkDomain;
-  window.location.href = `${process.env.VUE_APP_ACCOUNTS_DOMAIN}/login?target=${window.location.href}`;
+  window.location.href = `${process.env.VUE_APP_FRONTEND_ACCOUNTS_URL}/login?target=${window.location.href}`;
 }
 
 export function isAccessError(error) {

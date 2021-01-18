@@ -8,14 +8,14 @@ export class AuthService {
     this.auth = FirebaseInstance.auth();
     this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-    this.$logout = new Subject();
-    this.$lastReceivedUserState = new ReplaySubject(1);
+    this.logout$ = new Subject();
+    this.lastReceivedUserState$ = new ReplaySubject(1);
 
     this.auth.onAuthStateChanged((value) => {
       if (!value) {
-        this.$logout.next();
+        this.logout$.next();
       }
-      this.$lastReceivedUserState.next(value);
+      this.lastReceivedUserState$.next(value);
     });
   }
 
@@ -49,7 +49,7 @@ export class AuthService {
 
   async getUser() {
     return new Promise((resolve) => {
-      this.$lastReceivedUserState.pipe(first()).subscribe((user) => resolve(user));
+      this.lastReceivedUserState$.pipe(first()).subscribe((user) => resolve(user));
     });
   }
 
