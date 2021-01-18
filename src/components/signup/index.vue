@@ -34,10 +34,11 @@ export default {
   methods: {
     async signup() {
       if (this.password !== this.confirm) {
-        alert('Confirm password failed');
+        this.$toast.error('Confirm password failed');
         return;
       }
       await this.$auth.signup(this.email, this.password);
+      this.$toast.success('User created');
       this.$router.push('/login');
     },
   },

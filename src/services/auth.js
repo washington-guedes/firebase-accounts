@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import firebase from 'firebase/app';
 import { ReplaySubject, Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -61,7 +62,7 @@ export class AuthService {
       document.cookie = `__Secure_id=${token}; Domain=${process.env.VUE_APP_FIREBASE_COOKIES_DOMAIN}; Secure`;
     } catch (error) {
       if (error.code === 'auth/user-not-found') {
-        alert('User not found');
+        Vue.prototype.$toast.error('User not found');
       }
       console.error(error);
     }
@@ -72,11 +73,11 @@ export class AuthService {
       await this.auth.createUserWithEmailAndPassword(email, password);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        alert('Email já está em uso');
+        Vue.prototype.$toast.error('Email already in use');
         return;
       }
       if (error.code === 'auth/weak-password') {
-        alert(error.message);
+        Vue.prototype.$toast.error(error.message);
       }
       console.error(error);
     }
