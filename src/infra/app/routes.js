@@ -10,7 +10,6 @@ export const router = new VueRouter({
       path: '/',
       component: () => import('../../components/home/index.vue'),
       beforeEnter: (to, from, next) => {
-        console.log('beforeEnter /');
         Vue.prototype.$auth.isAuthenticated().then((yes) => (yes ? next() : next('/login')));
       },
     },
@@ -18,7 +17,6 @@ export const router = new VueRouter({
       path: '/login',
       component: () => import('../../components/login/index.vue'),
       beforeEnter: (to, from, next) => {
-        console.log('beforeEnter /login');
         Vue.prototype.$auth.logout().then(() => next());
       },
     },
@@ -26,7 +24,6 @@ export const router = new VueRouter({
       path: '/signup',
       component: () => import('../../components/signup/index.vue'),
       beforeEnter: (to, from, next) => {
-        console.log('beforeEnter /signup');
         Vue.prototype.$auth.logout().then(() => next());
       },
     },

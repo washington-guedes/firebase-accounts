@@ -17,5 +17,6 @@ module.exports = {
     indent: [2, 2, {
       ignoredNodes: ['TemplateLiteral'],
     }],
+    'class-methods-use-this': 'off',
   },
 };

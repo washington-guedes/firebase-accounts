@@ -1,21 +1,56 @@
 import firebase from 'firebase/app';
 import { ReplaySubject, Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
+import postRobot from 'post-robot';
 import FirebaseInstance from '../infra/firebase';
+
+const { hostname: parentHostname, origin: parentOrigin } = window.parent.location;
+const parentExists = parentOrigin !== process.env.VUE_APP_FRONTEND_ACCOUNTS_URL;
+const parentValid = parentHostname.endsWith(process.env.VUE_APP_HOSTNAME_MUST_END_WITH);
+const allowCommunication = parentExists && parentValid;
+
+const loggedIn$ = new Subject();
+const loggedOut$ = new Subject();
+const lastReceivedUserState$ = new ReplaySubject(1);
+
+loggedIn$.subscribe(() => {
+  if (allowCommunication) {
+    const sessionCookie = document.cookie.match(/\b__Secure_id=(\S+);?/).pop();
+    postRobot.send(window.parent, 'loggedIn', { __Secure_id: sessionCookie });
+  }
+});
 
 export class AuthService {
   constructor() {
+    this.pageLoaded = false;
+
     this.auth = FirebaseInstance.auth();
     this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-    this.logout$ = new Subject();
-    this.lastReceivedUserState$ = new ReplaySubject(1);
-
     this.auth.onAuthStateChanged((value) => {
-      if (!value) {
-        this.logout$.next();
+      if (value) {
+        loggedIn$.next();
+      } else {
+        loggedOut$.next();
+        if (this.pageLoaded) {
+          window.location.href = '/login';
+        }
       }
-      this.lastReceivedUserState$.next(value);
+
+      this.pageLoaded = true;
+      lastReceivedUserState$.next(value);
+    });
+
+    if (allowCommunication) {
+      postRobot.on('invalidateSession', () => this.logout());
+      postRobot.on('isAuthenticated', () => this.isAuthenticated());
+      postRobot.on('hasAccessTo', (x) => this.hasAccessTo(x));
+    }
+
+    loggedOut$.subscribe(() => {
+      if (allowCommunication) {
+        postRobot.send(window.parent, 'loggedOut');
+      }
     });
   }
 
@@ -49,7 +84,7 @@ export class AuthService {
 
   async getUser() {
     return new Promise((resolve) => {
-      this.lastReceivedUserState$.pipe(first()).subscribe((user) => resolve(user));
+      lastReceivedUserState$.pipe(first()).subscribe((user) => resolve(user));
     });
   }
 
